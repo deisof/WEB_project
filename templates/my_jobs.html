@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated and current_user.employment == 'Заказчик' %}
+<div class="add-job-btn"><a href="addjob">Добавить обращение</a></div>
+
+<h2 align="center">Отправленные обращения</h2>
+
+{% for item in jobs%}
+<h4>Обращение № {{ item.id }}</h4>
+<table class="myjobs-table">
+    <tr>
+        <th>Краткое описание работы</th>
+        <th>Адрес</th>
+        <th>Дата и время, когда нужно прийти</th>
+        <th>Доп. информация</th>
+    </tr>
+    <tr>
+        <td>{{ item.description }}</td>
+        <td>{{ item.address }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.info }}</td>
+    </tr>
+</table>
+<div class="edit-job-btn"><a href="/addjob/{{ item.id }}">Редактировать</a></div>
+<div class="delete-job-btn"><a href="/job_delete/{{ item.id }}">Удалить</a></div>
+
+
+{% if item.employee != 0 %}
+<div class="myjobs-employee">
+    <p>Обращение выполнит: {{ users[item.employee].surname }} {{ users[item.employee].name}}</p>
+    {% if users[item.employee].info != '' %}
+    <p>Доп.информация: {{ users[item.employee].info }}</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endfor %}
+
+
+<h2 align="center">Выполненные обращения</h2>
+{% if jobs_done == [] %}
+<h4>Пока что таких обращений нет</h4>
+{% endif %}
+{% for item in jobs_done %}
+<h4>Обращение № {{ item.id }}</h4>
+<table class="myjobs-table">
+    <tr>
+        <th>Краткое описание обращения</th>
+        <th>Адрес</th>
+        <th>Дата и время, когда нужно прийти</th>
+        <th>Доп. информация</th>
+    </tr>
+    <tr>
+        <td>{{ item.description }}</td>
+        <td>{{ item.address }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.info }}</td>
+    </tr>
+</table>
+
+{% if item.employee != 0 %}
+<div class="myjobs-employee">
+    <p>Обращение выполнил:</p>
+    <p>{{ users[item.employee].surname }} {{ users[item.employee].name}}</p>
+    {% if users[item.employee].info != '' %}
+    <p>Доп.информация: {{ users[item.employee].info }}</p>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endfor %}
+{% endif %}
+
+{% endblock %}

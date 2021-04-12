@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="about-job-title">Все обращения</h2>
+
+<h4 class="about-job-number">Обращение № {{ job.id }}</h4>
+
+<ul>
+    <li>Краткое описание обращения: {{ job.description }}</li>
+    <li>Адрес: {{ job.address }}</li>
+    <li>Оплата за обращение: {{ job.salary }} руб.</li>
+    <li>Когда приходить: {{ job.date }}</li>
+    <li>Доп. информация: {{ job.info }}</li>
+</ul>
+<ul><p class="about-job-employer">Заказчик: {{ employer.surname }} {{ employer.name }}</p>
+    <li>Email: {{ employer.email }}</li>
+    <li>Информация: {{ employer.info }}</li>
+</ul>
+
+
+<form action="" method="POST">
+    {% if current_user.is_authenticated and current_user.employment == 'Волонтёр' and job.employee == 0 %}
+    <p>{{ form.submit_ready(type="submit", class="ready-btn") }}</p>
+
+    {% elif current_user.is_authenticated and current_user.id == job.employee %}
+    <div class="already-about-job">Вы готовы приступить к работе</div>
+    <p>{{ form.submit_refuse(type="submit", class="refuse-btn") }}</p>
+    {% elif current_user.is_authenticated and current_user.id != job.employee and job.employee != 0 %}
+    <div>
+        <p>Эту услугу уже кто-то предоствляет</p>
+    </div>
+    {% endif %}
+    {{message}}
+</form>
+
+{% endblock %}

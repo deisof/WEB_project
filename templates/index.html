@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="index-title">Все обращения</h2>
+
+<form action="" method="POST">
+    <p>
+        {{ form.my_address.label }}<br>
+        {{ form.my_address(class="index-form") }}<br>
+        {% for error in form.my_address.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+
+    <p>{{ form.submit_address(type="submit", class="index_button") }}</p>
+    <p>
+        {{ form.sorting.label }}<br>
+        {{ form.sorting(class="index-form") }}<br>
+        {% for error in form.sorting.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>{{ form.submit_sort(type="submit", class="index_button") }}</p>
+    {{message}}
+</form>
+
+{% for item in jobs%}
+{% if item.is_finished == False %}
+<div class="index-job">
+<h4>Обращение № {{ item.id }}</h4>
+
+<ul>
+    <li>Краткое описание обращения: {{ item.description }}</li>
+    <li>Адрес: {{ item.address }}</li>
+    <li>Когда приходить: {{ item.date }}</li>
+</ul>
+
+{% if current_user.is_authenticated and current_user.id == item.employer %}
+<div class="edit-job-btn"><a href="/addjob/{{ item.id }}">Редактировать</a></div>
+<div class="delete-job-btn"><a href="/job_delete/{{ item.id }}">Удалить</a></div>
+{% endif %}
+
+{% if current_user.is_authenticated and current_user.employment == 'Волонтёр' %}
+<div class="about-job-btn">
+    <a href="/about_job/{{ item.id }}">Подробнее</a>
+</div>
+{% endif %}
+</div>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
