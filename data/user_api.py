@@ -47,5 +47,5 @@ def register():
 
         session.commit()
         return redirect('/')
-    return render_template('register.html', title='Register',
+    return render_template('register.html', title='Регистрация',
                            form=form)
