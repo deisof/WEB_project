@@ -11,9 +11,11 @@
     <title>{{title}}</title>
 </head>
 <body>
+<style>
+</style>
 <div class="menu">
+    <img src="http://127.0.0.1:5000/static/img/Поиск%20обращений.png" class="img-responsive">
     <nav class="navbar">
-
         <a class="home" href="/">
             <svg class="bi bi-house" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg">
@@ -54,9 +56,6 @@
         <div class="login"><a href="/login">Вход</a></div>
         </p>
         {% endif %}
-        <h2 class="title">
-            Поиск обращений
-        </h2>
         <p class="username">{{ current_user.surname }} {{ current_user.name }}</p>
     </nav>
 </div>
