@@ -10,9 +10,7 @@
 
 Для того, чтобы попасть на наш сайт, нужно перейти по ссылке:
 
-```
-[https://dobro48.herokuapp.com/](https://dobro48.herokuapp.com/)
-```
+* **Сайт** - *Добро начинается с тебя!* - [https://dobro48.herokuapp.com/](https://dobro48.herokuapp.com/)
 
 ### Функционал
 
