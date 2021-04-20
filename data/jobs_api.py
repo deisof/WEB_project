@@ -34,12 +34,12 @@ def index():
 @blueprint.route("/myjobs")
 def myjobs():
     session = db_session.create_session()
-    jobs = session.query(Jobs).filter(Jobs.employer == current_user.id, Jobs.is_finished is False).all()
+    jobs = session.query(Jobs).filter(Jobs.employer == current_user.id, Jobs.is_finished == False).all()
     sp = session.query(User).all()
     users = {}
     for user in sp:
         users[user.id] = user
-    jobs_done = session.query(Jobs).filter(Jobs.employer == current_user.id, Jobs.is_finished is True).all()
+    jobs_done = session.query(Jobs).filter(Jobs.employer == current_user.id, Jobs.is_finished == True).all()
     return render_template("my_jobs.html", jobs=jobs, users=users, jobs_done=jobs_done, title='Добро начинается с тебя')
 
 
