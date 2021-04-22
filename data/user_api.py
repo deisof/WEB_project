@@ -35,6 +35,11 @@ def logout():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
         user = User()
         user.email = form.email.data
         user.set_password(form.password.data)
